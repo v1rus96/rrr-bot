@@ -154,7 +154,7 @@ const startOnboarding = async (chatId, userInfo) => {
   }
 
   // Start onboarding video
-  bot.sendVideo(chatId, "rec.mov", {
+  bot.sendVideo(chatId, "dars.mov", {
     caption: `
 🎯 *Tabriklaymiz!* Sizni "Professional Crypto" darslarini o'rganishni boshlashdan bir necha daqiqa ajratib turibdi.
 
@@ -172,7 +172,7 @@ Obuna bo'lishingiz shart, chunki professional crypto darslarning bir qismi bo'lg
   setTimeout(() => {
     bot.sendMessage(
       chatId,
-      "Yaxshi! 'Ko'rdim' tugmachasini bosing.",
+      `🎬 Kirish darsini oxirigacha ko'rgan bo'lsangiz bosing👇`,
       {
         reply_markup: {
           inline_keyboard: [
@@ -193,24 +193,24 @@ bot.on("callback_query", async (callbackQuery) => {
   if (!user) {
     bot.sendMessage(
       chatId,
-      "Please use the /start command to begin the onboarding process."
+      "Iltimos, onboarding jarayonini boshlash uchun /start buyrug'ini bosing."
     );
     return;
   }
 
   if (callbackQuery.data === "video_watched") {
-    bot.sendMessage(chatId, "Kursni boshlash uchun, kanalga obuna bo'ling.", {
+    bot.sendMessage(chatId, "Jonli darslar shu yerda bo'ladi", {
       reply_markup: {
         inline_keyboard: [
           [
             {
-              text: "Kanalga obuna bo'lish",
+              text: "Obuna bo'lish",
               url: `https://t.me/${CHANNEL_USERNAME.slice(1)}`,
             },
           ],
           [
             {
-              text: "Kanaldan obuna bo'ldim",
+              text: "Obuna bo'ldim",
               callback_data: "joined_channel",
             },
           ],
