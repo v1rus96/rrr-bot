@@ -1,0 +1,5 @@
+{
+    "firstBotToken": "YOUR_FIRST_BOT_TOKEN",
+    "adminBotToken": "YOUR_ADMIN_BOT_TOKEN",
+    "mongoURI": "mongodb+srv://rrruniverse:rrruniverse@ktrialinfo.kbp1y.mongodb.net/universe?retryWrites=true&w=majority&appName=KTrialInfo"
+  }
