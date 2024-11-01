@@ -3,11 +3,12 @@ const mongoose = require("mongoose");
 const User = require("./models/User"); // Import the User model
 const connectDB = require("./config/db"); // Connect to MongoDB
 const Message = require("./models/Message"); // Import the Message model
+require('dotenv').config();
 
-const BOT_TOKEN = "7418046086:AAEpLxd7LfRf1hmUzOSkUVxujz_IQuFssDA";
+const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHANNEL_USERNAME = "@abdurahmoncrypto";
 const MINI_APP_URL = "https://t.me/rrrlearning_bot/crypto";
-const VIDEO_DURATION_MS = 5000;
+const VIDEO_DURATION_MS = 60000;
 
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 connectDB();
