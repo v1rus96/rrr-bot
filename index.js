@@ -1,5 +1,6 @@
 const TelegramBot = require("node-telegram-bot-api");
 const mongoose = require("mongoose");
+const express = require('express');
 const User = require("./models/User"); // Import the User model
 const connectDB = require("./config/db"); // Connect to MongoDB
 const Message = require("./models/Message"); // Import the Message model
@@ -10,8 +11,25 @@ const CHANNEL_USERNAME = "@abdurahmoncrypto";
 const MINI_APP_URL = "https://t.me/rrrlearning_bot/crypto";
 const VIDEO_DURATION_MS = 60000;
 
-const bot = new TelegramBot(BOT_TOKEN, { polling: true });
+const bot = new TelegramBot(BOT_TOKEN);
+bot.setWebhook(`https://shrieking-spirit-66440-33562de4172b.herokuapp.com/${BOT_TOKEN}`);
 connectDB();
+
+// Express setup
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json()); // Parse JSON request body
+
+// Webhook endpoint
+app.post(`/${BOT_TOKEN}`, (req, res) => {
+    bot.processUpdate(req.body); // Pass updates to the bot
+    res.sendStatus(200); // Respond with 200 to confirm receipt
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 // Define the admin chat ID to restrict access
 const ADMIN_CHAT_ID = 140251378; // Replace with the actual admin chat ID
