@@ -154,7 +154,7 @@ const startOnboarding = async (chatId, userInfo) => {
   }
 
   // Start onboarding video
-  bot.sendVideo(chatId, "dars.mov", {
+  bot.sendVideo(chatId, "dars.mp4", {
     caption: `
 🎯 *Tabriklaymiz!* Sizni "Professional Crypto" darslarini o'rganishni boshlashdan bir necha daqiqa ajratib turibdi.
 
