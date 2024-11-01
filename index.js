@@ -12,7 +12,7 @@ const MINI_APP_URL = "https://t.me/rrrlearning_bot/crypto";
 const VIDEO_DURATION_MS = 60000;
 
 const bot = new TelegramBot(BOT_TOKEN);
-bot.setWebhook(`https://shrieking-spirit-66440-33562de4172b.herokuapp.com/${BOT_TOKEN}`);
+bot.setWebHook(`https://shrieking-spirit-66440-33562de4172b.herokuapp.com/${BOT_TOKEN}`);
 connectDB();
 
 // Express setup
