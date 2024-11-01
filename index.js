@@ -5,7 +5,7 @@ const connectDB = require("./config/db"); // Connect to MongoDB
 const Message = require("./models/Message"); // Import the Message model
 
 const BOT_TOKEN = "7418046086:AAEpLxd7LfRf1hmUzOSkUVxujz_IQuFssDA";
-const CHANNEL_USERNAME = "@test3rrr";
+const CHANNEL_USERNAME = "@abdurahmoncrypto";
 const MINI_APP_URL = "https://t.me/rrrlearning_bot/crypto";
 const VIDEO_DURATION_MS = 5000;
 
