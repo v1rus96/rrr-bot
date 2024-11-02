@@ -271,6 +271,23 @@ bot.onText(/\/miniapp/, async (msg) => {
   }
 });
 
+//create a command so the users who did not receive the onboarding message can start the onboarding process
+bot.onText(/\/onboarding/, async (msg) => {
+  const chatId = msg.chat.id;
+  const userInfo = msg.from; // Contains all user information from Telegram
+
+  const user = await
+  User.findOne({ userId: userInfo.id });
+  if (!user || !user.onboarding) {
+    await startOnboarding(chatId, userInfo);
+  } else {
+    bot.sendMessage(
+      chatId,
+      "Siz allaqachon onboarding jarayonini tugatgansiz. Dasturni boshlash uchun /miniapp buyrug'ini bosing."
+    );
+  }
+});
+
 // Start command to initiate onboarding
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
