@@ -126,10 +126,14 @@ bot.on("callback_query", async (callbackQuery) => {
                 await bot.sendMessage(user.userId, draft.text);
               }
             } catch (error) {
-              console.error(
-                `Failed to send message to ${user.userId}:`,
-                error.message
-              );
+              if (error.response && error.response.statusCode === 403) {
+                console.warn(`User ${user.userId} has blocked the bot.`);
+              } else {
+                console.error(
+                  `Failed to send message to ${user.userId}:`,
+                  error.message
+                );
+              }
             }
           })
         );
