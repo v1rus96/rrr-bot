@@ -106,29 +106,36 @@ bot.on("callback_query", async (callbackQuery) => {
         return;
       }
 
-      // Send the draft message to each user
-      const broadcastPromises = users.map(async (user) => {
-        try {
-          if (draft.mediaType === "photo") {
-            await bot.sendPhoto(user.userId, draft.mediaId, {
-              caption: draft.text,
-            });
-          } else if (draft.mediaType === "video") {
-            await bot.sendVideo(user.userId, draft.mediaId, {
-              caption: draft.text,
-            });
-          } else {
-            await bot.sendMessage(user.userId, draft.text);
-          }
-        } catch (error) {
-          console.error(
-            `Failed to send message to ${user.userId}:`,
-            error.message
-          );
-        }
-      });
-
-      await Promise.all(broadcastPromises);
+      // Send the draft message to each user in batches
+      const batchSize = 50;
+      const delay = 1000; // 1-second delay between batches
+      for (let i = 0; i < users.length; i += batchSize) {
+        const batch = users.slice(i, i + batchSize);
+        await Promise.all(
+          batch.map(async (user) => {
+            try {
+              if (draft.mediaType === "photo") {
+                await bot.sendPhoto(user.userId, draft.mediaId, {
+                  caption: draft.text,
+                });
+              } else if (draft.mediaType === "video") {
+                await bot.sendVideo(user.userId, draft.mediaId, {
+                  caption: draft.text,
+                });
+              } else {
+                await bot.sendMessage(user.userId, draft.text);
+              }
+            } catch (error) {
+              console.error(
+                `Failed to send message to ${user.userId}:`,
+                error.message
+              );
+            }
+          })
+        );
+        // Delay before the next batch
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
 
       bot.sendMessage(chatId, "Broadcast message sent to all users.");
       await Message.deleteMany(); // Clear the draft after broadcasting
@@ -143,6 +150,7 @@ bot.on("callback_query", async (callbackQuery) => {
 
   bot.answerCallbackQuery(callbackQuery.id);
 });
+
 
 // Start the onboarding process and save all user information
 const startOnboarding = async (chatId, userInfo) => {
